@@ -4,6 +4,9 @@ import Image from 'next/image'
 
 import logo from './assets/logo.png'
 import Input from './components/input/Input'
+import Current from './components/current/Current'
+import WeakForecast from './components/week-forecast/WeakForecast'
+import Details from './components/details/Details'
 
 const Home = () => {
   const [data,setData] = useState({})
@@ -27,10 +30,36 @@ const Home = () => {
       } catch (error) {
         setError("City not found.")
         setData({})
-// 1:04:39
       }
     }
   } 
+
+  let content;
+  if (Object.keys(data).length === 0 && error === '') {
+    content = (
+      <div className="">
+        <h2>Welcome the the weather forecast.</h2>
+      </div>
+    )
+  } else if (error !== '') {
+    content = (
+      <div className="">
+        <p>City not found</p>
+      </div>
+    )
+  } else {
+    content = (
+      <>
+        <div className="">
+          <Current data={data} />
+          <WeakForecast />
+        </div>
+        <div className="">
+          <Details />
+        </div>
+      </>
+    )
+  }
 
   return (
     <div className="bg-cover bg-gradient-to-r from-cyan-500 to-blue-500 h-screen">
@@ -40,12 +69,8 @@ const Home = () => {
           <div className="mb-8 md:mb-0 order-1 ">
             <Image src={logo} className="w-8 md:w-14" alt="" />
           </div>
-          {data.current ? (
-            <div className="">
-              {data.current.temp_f}
-            </div>
-          ) : null}
         </div>
+        {content}
       </div>
     </div>
   )
