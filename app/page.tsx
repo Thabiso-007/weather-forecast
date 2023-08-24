@@ -13,7 +13,9 @@ const Home = () => {
   const [location, setLocation] = useState<string>("")
   const [error, setError] = useState<string>("")
 
-  const url = `http://api.weatherapi.com/v1/forecast.json?key=b96a9c2aa05a4d408af122152232108&q=${location}&days=7&aqi=yes&alerts=yes`
+  const API_key = process.env.NEXT_PUBLIC_SOMETHING
+
+  const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_key}&q=${location}&days=7&aqi=yes&alerts=yes`
 
   const handleSearch = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
