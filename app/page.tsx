@@ -9,9 +9,9 @@ import WeakForecast from './components/week-forecast/WeakForecast'
 import Details from './components/details/Details'
 
 const Home = () => {
-  const [data,setData] = useState({})
-  const [location, setLocation] = useState("")
-  const [error, setError] = useState("")
+  const [data,setData] = useState<any>({})
+  const [location, setLocation] = useState<string>("")
+  const [error, setError] = useState<string>("")
 
   const url = `http://api.weatherapi.com/v1/forecast.json?key=b96a9c2aa05a4d408af122152232108&q=${location}&days=7&aqi=yes&alerts=yes`
 
@@ -37,37 +37,39 @@ const Home = () => {
   let content;
   if (Object.keys(data).length === 0 && error === '') {
     content = (
-      <div className="">
-        <h2>Welcome the the weather forecast.</h2>
+      <div className="text-white text-center h-screen mt-[5rem]">
+        <h2 className="text-3xl">Welcome the the weather forecast.</h2>
+        <p>Enter a city name to get the weather forecast.</p>
       </div>
     )
   } else if (error !== '') {
     content = (
-      <div className="">
-        <p>City not found</p>
+      <div className="text-white text-center h-screen mt-[5rem]">
+        <p className="text-3xl">City not found</p>
       </div>
     )
   } else {
     content = (
       <>
-        <div className="">
+        <div className="flex md:flex-row flex-col p-12 items-center justify-between">
           <Current data={data} />
-          <WeakForecast />
+          <WeakForecast data={data} />
         </div>
         <div className="">
-          <Details />
+          <Details data={data} />
         </div>
       </>
     )
   }
 
   return (
-    <div className="bg-cover bg-gradient-to-r from-cyan-500 to-blue-500 h-screen">
+    <div className="bg-cover bg-gradient-to-r from-red-700 to-red-500 h-fit">
       <div className="bg-white/25 w-full flex flex-col h-full">
         <div className="flex flex-col md:flex-row justify-between items-center p-12">
           <Input handleSearch={handleSearch} setLocation={setLocation} />
-          <div className="mb-8 md:mb-0 order-1 ">
+          <div className="mb-8 md:mb-0 order-1 align-center justify-center">
             <Image src={logo} className="w-8 md:w-14" alt="" />
+            <h2 className="text-2xl text-white">Weather forecast</h2>
           </div>
         </div>
         {content}
