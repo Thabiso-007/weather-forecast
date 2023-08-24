@@ -20,7 +20,14 @@ const Home = () => {
     if (e.key === "Enter") {
       e.preventDefault()
       try {
-        const res = await fetch(url)
+        const res = await fetch(url, {
+          method: "GET", // POST, PUT, DELETE, etc.
+          headers: {
+          // the content type header value is usually auto-set
+          // depending on the request body
+          "Content-Type": "application/json",
+          }
+        })
         if (!res.ok) {
           throw new Error()
         }
