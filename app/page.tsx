@@ -7,15 +7,14 @@ import Input from './components/input/Input'
 import Current from './components/current/Current'
 import WeakForecast from './components/week-forecast/WeakForecast'
 import Details from './components/details/Details'
+import nextConfig from '../next.config'
 
 const Home = () => {
   const [data,setData] = useState<any>({})
   const [location, setLocation] = useState<string>("")
   const [error, setError] = useState<string>("")
-
-  const API_key = process.env.NEXT_PUBLIC_SOMETHING
-
-  const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_key}&q=${location}&days=7&aqi=yes&alerts=yes`
+  
+  const url = `http://api.weatherapi.com/v1/forecast.json?key=${nextConfig.env}&q=${location}&days=7&aqi=yes&alerts=yes`
 
   const handleSearch = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
